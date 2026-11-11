@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b22">
+<title>AI Crop Disease Detector | AgriSense</title>
+<style>
+:root{--forest:#102d23;--forest2:#194936;--leaf:#72c783;--lime:#d4f28b;--cream:#f5f8f0;--ink:#18372b;--muted:#6d7f73;--line:#dce8dc;--white:#fff;--shadow:0 18px 48px #102d2312}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}a{color:inherit}.wrap{width:min(1160px,92%);margin:auto}
+.hero{background:radial-gradient(circle at 82% 23%,#38784e 0,transparent 30%),linear-gradient(125deg,#0b211a,#143e2d 62%,#1c5038);color:white;position:relative;overflow:hidden;padding-bottom:84px}.hero:after{content:"";position:absolute;width:550px;height:550px;border:1px solid #d5f4d322;border-radius:50%;right:-140px;bottom:-350px;box-shadow:0 0 0 48px #d5f4d20b,0 0 0 96px #d5f4d207;pointer-events:none}
+nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:2}.brand{display:flex;align-items:center;gap:10px;font-size:1.16rem;font-weight:900;letter-spacing:-.5px}.brand-icon{width:40px;height:40px;border-radius:14px;background:linear-gradient(145deg,#d4f28b,#66c47c);color:#143a2b;display:grid;place-items:center;font-size:1.35rem}.navlinks{display:flex;gap:25px}.navlinks a{text-decoration:none;color:#d6e9dc;font-size:.88rem}.navlinks a:hover{color:var(--lime)}.navbtn{background:var(--lime);color:#173929;text-decoration:none;border-radius:99px;padding:11px 17px;font-weight:850;font-size:.86rem}
+.hero-content{position:relative;z-index:1;display:grid;grid-template-columns:1.08fr .92fr;gap:35px;align-items:center;padding:65px 0 28px}.eyebrow{font-size:.73rem;letter-spacing:2.3px;text-transform:uppercase;color:var(--lime);font-weight:850}.hero h1{font-size:clamp(2.8rem,6.5vw,5.6rem);line-height:.98;letter-spacing:-3.7px;margin:17px 0 20px;max-width:720px}.hero h1 span{color:var(--lime)}.hero p{color:#d1e4d7;line-height:1.8;max-width:570px;font-size:1rem}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.btn{border:0;border-radius:99px;padding:13px 19px;background:var(--lime);color:#153728;font-weight:850;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-outline{border:1px solid #ffffff55;border-radius:99px;padding:12px 18px;color:white;text-decoration:none;font-weight:750}.hero-art{min-height:360px;display:grid;place-items:center;position:relative}.halo{width:min(370px,90%);aspect-ratio:1;border-radius:50%;border:1px solid #d5f4d344;display:grid;place-items:center;background:radial-gradient(circle,#bdeaa019 0 30%,transparent 31%),radial-gradient(circle,#bdeaa00c 0 53%,transparent 54%);position:relative}.halo:before,.halo:after{content:"";position:absolute;inset:30px;border:1px dashed #d5f4d355;border-radius:50%}.halo:after{inset:72px;border-style:solid;opacity:.55}.leaf-art{width:205px;height:245px;filter:drop-shadow(0 20px 25px #06191088)}.float{position:absolute;background:#f8fff2;color:#17372a;border-radius:15px;padding:13px 15px;box-shadow:0 14px 30px #06191066;font-size:.78rem}.float b{display:block;font-size:.95rem;margin-top:4px}.float.one{top:28px;left:0}.float.two{right:-4px;bottom:32px}.green-dot{display:inline-block;width:8px;height:8px;background:#59b976;border-radius:50%;margin-right:6px}
+main{padding-bottom:75px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:-42px;position:relative;z-index:2}.stat{background:white;border:1px solid #e5eee4;border-radius:17px;padding:19px 21px;box-shadow:var(--shadow)}.stat small{color:var(--muted);font-weight:700}.stat strong{display:block;font-size:1.35rem;margin:5px 0 2px}.stat em{font-style:normal;color:#579365;font-size:.76rem}
+.section{padding-top:72px}.section-head{margin-bottom:24px}.pill{display:inline-block;padding:7px 11px;border-radius:99px;background:#e4f3e4;color:#327347;font-size:.7rem;letter-spacing:.8px;font-weight:900}.section h2{font-size:clamp(1.8rem,3vw,2.55rem);letter-spacing:-1.4px;margin:10px 0 7px}.section-head p{margin:0;color:var(--muted);line-height:1.65}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:19px}.card{background:white;border:1px solid #e3ece2;border-radius:21px;padding:24px;box-shadow:0 10px 34px #18372b09}.card h3{font-size:1.12rem;margin:0 0 7px}.desc{color:var(--muted);font-size:.85rem;line-height:1.65;margin:0 0 18px}.field{display:flex;flex-direction:column;gap:7px;margin:12px 0}.field label{font-size:.78rem;font-weight:800;color:#456052}.field input,.field select{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:11px;background:#fbfdf9;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:#68b77b;box-shadow:0 0 0 3px #68b77b20}.row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}.action{width:100%;border:0;border-radius:12px;padding:13px 16px;background:var(--forest);color:white;font-weight:850;margin-top:7px}.action:hover{background:#20583e}.output{display:none;margin-top:15px;border:1px solid #d8ead5;background:#eff8ed;border-radius:13px;padding:15px;font-size:.87rem;line-height:1.65}.output.show{display:block}.output strong{color:#23623a}.upload{display:block;border:1.5px dashed #a9c9ad;background:#f8fcf6;border-radius:15px;padding:23px;text-align:center;cursor:pointer}.upload:hover{background:#f0f8ef;border-color:#529e65}.upload input{display:none}.upload-icon{display:grid;place-items:center;margin:0 auto 9px;width:43px;height:43px;border-radius:14px;background:#e5f5e5;color:#347b49;font-size:1.4rem}.upload b{font-size:.9rem}.upload small{display:block;color:var(--muted);margin-top:5px}.preview{max-width:100%;max-height:170px;border-radius:11px;margin-top:13px;display:none}.notice{font-size:.73rem;color:#788a7e;line-height:1.55;margin:12px 0 0}.market-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid #edf1eb}.market-row:last-child{border:0}.market-row small{display:block;color:var(--muted);font-size:.75rem;margin-top:3px}.market-price{text-align:right;font-weight:900}.sample{color:#4b945e;font-size:.72rem;font-weight:750}.badge{display:inline-block;border-radius:99px;padding:5px 9px;background:#e7f4e7;color:#36754a;font-size:.7rem;font-weight:850}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature{background:white;border:1px solid #e5ede3;border-radius:18px;padding:21px}.feature-icon{width:42px;height:42px;border-radius:14px;background:#e7f5e7;display:grid;place-items:center;font-size:1.2rem;margin-bottom:14px}.feature h3{margin:0 0 7px;font-size:.98rem}.feature p{margin:0;color:var(--muted);font-size:.83rem;line-height:1.65}.vision{background:linear-gradient(120deg,#e7f5e8,#f8faef);border:1px solid #dcebd8;border-radius:22px;padding:28px}.vision p{color:#587064;line-height:1.8;max-width:850px;margin-bottom:0}
+footer{background:#0b211a;color:#e6f2e8;padding:35px 0}.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.creator-label{color:#b8d1c0;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;font-weight:850}.creator-name{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.05;letter-spacing:-2px;font-weight:950;background:linear-gradient(90deg,#e5ffb2,#80d59a);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 8px 30px #73c78322;margin:5px 0}.for{color:#d1e4d7;font-size:.9rem}.footer-note{color:#9bb5a4;font-size:.72rem;line-height:1.6;margin-top:19px}
+@media(max-width:760px){.navlinks{display:none}.hero-content{grid-template-columns:1fr;padding-top:45px}.hero h1{letter-spacing:-2.3px}.hero-art{min-height:290px}.halo{width:280px}.leaf-art{width:160px;height:195px}.float.one{top:8px;left:0}.float.two{right:0;bottom:10px}.stats{grid-template-columns:1fr;margin-top:-30px}.grid2,.features{grid-template-columns:1fr}.section{padding-top:55px}.row2{grid-template-columns:1fr}.card{padding:20px}.creator-name{font-size:2.8rem}}
+
+/* --- Professional midnight forest theme --- */
+:root{
+ --forest:#071a14;--forest2:#102d22;--leaf:#75c98a;--lime:#c9ef8b;
+ --cream:#091b15;--ink:#e8f3e9;--muted:#a5b9aa;--line:#294638;
+ --white:#10271e;--shadow:0 18px 48px rgba(0,0,0,.28);
+}
+html{background:#091b15}
+body{
+ color:#e8f3e9;
+ background:
+  radial-gradient(ellipse at 12% 18%,rgba(47,105,67,.20),transparent 34%),
+  radial-gradient(ellipse at 88% 42%,rgba(33,91,59,.18),transparent 35%),
+  linear-gradient(145deg,#071710 0%,#0b2118 48%,#081a14 100%);
+ background-attachment:fixed;
+}
+.hero{
+ background:
+  linear-gradient(90deg,rgba(4,19,13,.94),rgba(8,34,22,.82)),
+  radial-gradient(ellipse at 76% 28%,#397c4c 0,transparent 38%),
+  linear-gradient(130deg,#06170f,#123d28 62%,#1c5436);
+}
+.hero:before{
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;
+ background-image:
+  radial-gradient(ellipse at 8% 28%,transparent 0 38px,rgba(190,231,173,.35) 39px,transparent 41px),
+  radial-gradient(ellipse at 93% 68%,transparent 0 54px,rgba(190,231,173,.3) 55px,transparent 57px);
+ background-size:180px 210px,240px 260px;
+}
+.hero:after{border-color:#c5e9c326;box-shadow:0 0 0 48px #c5e9c20a,0 0 0 96px #c5e9c206}
+.brand-icon{box-shadow:0 8px 25px #70c77b30}
+.navlinks a{color:#c3d8c9}
+.navbtn,.btn{background:linear-gradient(135deg,#d9f5a2,#8ed99b);box-shadow:0 8px 24px #8bd28b20}
+.hero p{color:#c1d5c7}
+.float{background:rgba(239,250,235,.96);color:#17372a}
+.stats{margin-top:-42px}
+.stat,.card,.feature{
+ background:linear-gradient(145deg,rgba(20,49,36,.96),rgba(12,35,25,.96));
+ border:1px solid rgba(137,190,145,.20);
+ box-shadow:0 16px 42px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.025);
+ color:#e8f3e9;
+}
+.stat small,.desc,.section-head p,.feature p,.market-row small{color:#a7bcad}
+.stat em{color:#91d69a}
+.section h2{color:#edf7ee}
+.pill,.badge{background:#1d4630;color:#bde9a9;border:1px solid #376647}
+.field label{color:#c4d7c8}
+.field input,.field select{
+ background:#0a2017;color:#e7f2e8;border-color:#31513e;
+ color-scheme:dark;
+}
+.field input::placeholder{color:#82998a}
+.field input:focus,.field select:focus{border-color:#80c98a;box-shadow:0 0 0 3px #68b77b25}
+.action{background:linear-gradient(135deg,#245d3d,#17452f);border:1px solid #3b7650;box-shadow:0 7px 18px #0003}
+.action:hover{background:linear-gradient(135deg,#32754b,#20573a)}
+.upload{background:linear-gradient(145deg,#102d20,#0b2118);border-color:#4b7955;color:#e4f2e5}
+.upload:hover{background:#173b28;border-color:#8bc995}
+.upload-icon,.feature-icon{background:#1d4930;color:#c8ef9a}
+.output{background:#122f20;border-color:#3a6944;color:#e2f1e4}
+.output strong{color:#bde9a9}
+.market-row{border-bottom-color:#294638}
+.notice{color:#9eb5a4}
+.vision{
+ background:
+  radial-gradient(ellipse at 90% 5%,rgba(103,171,104,.15),transparent 42%),
+  linear-gradient(120deg,#143524,#0d281c);
+ border-color:#315b3c;
+}
+.vision p{color:#bdd2c2}
+footer{background:linear-gradient(120deg,#04120d,#0b2418);border-top:1px solid #294638}
+.footer-note{color:#9eb5a4}
+.creator-name{
+ background:linear-gradient(90deg,#e6ffb6,#a0e6a7 55%,#d1f39a);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+ text-shadow:0 8px 35px #73c78330;
+}
+@media(max-width:760px){
+ .hero{background:linear-gradient(180deg,rgba(4,19,13,.95),rgba(8,34,22,.9)),radial-gradient(ellipse at 80% 25%,#397c4c,transparent 45%)}
+ .stat,.card,.feature{box-shadow:0 12px 30px rgba(0,0,0,.2)}
+}
+
+
+.nav-tools{display:flex;align-items:center;gap:11px}
+.language-label{font-size:.62rem;letter-spacing:1.3px;font-weight:900;color:#a9c9b1}
+#languageSelect{appearance:none;-webkit-appearance:none;min-width:112px;padding:10px 31px 10px 12px;border:1px solid #52745b;border-radius:999px;color:#e9f4e9;background:#102d20 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c9ef8b' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 11px center;font-size:.8rem;font-weight:750;outline:none;cursor:pointer}
+#languageSelect:focus{border-color:#c9ef8b;box-shadow:0 0 0 3px #c9ef8b22}
+#languageSelect option{background:#102d20;color:#f1f8ef}
+@media(max-width:760px){.nav-tools{margin-left:auto;gap:7px}.language-label{display:none}#languageSelect{min-width:92px;padding:9px 26px 9px 10px}.navbtn{font-size:.75rem;padding:10px 12px}}
+
+</style>
+</head>
+<body>
+<header class="hero" id="top"><div class="wrap">
+<nav><div class="brand"><span class="brand-icon">🌱</span>AgriSense <span style="color:#d4f28b">AI</span></div><div class="navlinks"><a href="#farmer">Farmer login</a><a href="#crop">Crop planner</a><a href="#disease">Disease care</a><a href="#market">Market watch</a></div><div class="nav-tools"><label class="language-label" for="languageSelect">LANGUAGE</label><select id="languageSelect" aria-label="Choose website language"><option value="en">English</option><option value="te">తెలుగు</option><option value="hi">हिन्दी</option></select><a class="navbtn" href="#farmer">Get started ↗</a></div></nav>
+<div class="hero-content"><div><div class="eyebrow">✦ Smart agriculture • Nature meets science</div>
+<h1>AI CROP DISEASE <span>DETECTOR</span></h1>
+<p>Your intelligent farming companion. Sign in with a mobile number, add your soil-test details, discover crop options for your climate and water availability, monitor crop health, and explore market opportunities across Telangana and India.</p>
+<div class="hero-actions"><a class="btn" href="#farmer">Start as a farmer ↗</a><a class="btn-outline" href="#features">Explore features</a></div></div>
+<div class="hero-art"><div class="halo"><svg class="leaf-art" viewBox="0 0 220 270" fill="none"><path d="M111 247C105 192 117 133 111 58" stroke="#B7E98B" stroke-width="7" stroke-linecap="round"/><path d="M111 170C72 135 43 143 34 169C64 194 91 190 111 170Z" fill="#72C879" stroke="#B8ED9C" stroke-width="2"/><path d="M111 133C145 91 179 96 190 119C170 151 139 157 111 133Z" fill="#4DAE70" stroke="#B8ED9C" stroke-width="2"/><path d="M111 95C78 61 84 31 109 17C135 43 133 70 111 95Z" fill="#91D77D" stroke="#D2F2AC" stroke-width="2"/><path d="M109 246C77 249 57 242 43 228M111 246C139 248 159 239 176 222" stroke="#8DCA77" stroke-width="4" stroke-linecap="round"/><path d="M38 169L103 173M187 120L119 133M109 21L111 87" stroke="#D3F3B0" stroke-width="1.5"/></svg></div><div class="float one"><span class="green-dot"></span>Smart crop care<b>Healthier fields, better decisions</b></div><div class="float two">✦ Soil + climate insights<b>Farming guided by data</b></div></div></div>
+</div></header>
+<main class="wrap">
+<div class="stats"><div class="stat"><small>🌱 Smart planning</small><strong>Soil to seed</strong><em>Crop ideas for your field</em></div><div class="stat"><small>🧫 Crop protection</small><strong>Early awareness</strong><em>Observe, identify, seek advice</em></div><div class="stat"><small>📍 Market awareness</small><strong>Telangana + India</strong><em>Compare prices by market</em></div></div>
+<section class="section" id="farmer"><div class="section-head"><span class="pill">01 · FARMER ACCESS</span><h2>Welcome, farmer.</h2><p>Start with your mobile number, then add your field information.</p></div>
+<div class="grid2"><article class="card"><h3>📱 Farmer login</h3><p class="desc">Enter your mobile number to begin. This demo shows the login flow only; OTP verification needs a secure backend.</p><div class="field"><label for="mobile">Mobile number</label><input id="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="Enter 10-digit mobile number"></div><button class="action" id="login">Continue with mobile number →</button><div class="output" id="loginOut" aria-live="polite"></div></article>
+<article class="card"><h3>🧾 Soil & field report</h3><p class="desc">Add your soil-test values and field conditions for more informed crop planning.</p><div class="field"><label for="soilfile">Upload soil test report (optional)</label><input id="soilfile" type="file" accept=".pdf,.jpg,.jpeg,.png"></div><div class="row2"><div class="field"><label for="landtype">Land / soil type</label><select id="landtype"><option value="Black soil">Black soil</option><option value="Red soil">Red soil</option><option value="Loamy soil">Loamy soil</option><option value="Sandy soil">Sandy soil</option><option value="Clay soil">Clay soil</option></select></div><div class="field"><label for="water">Water availability</label><select id="water"><option value="High">High</option><option value="Moderate">Moderate</option><option value="Low">Low</option></select></div></div><div class="row2"><div class="field"><label for="ph">Soil pH (if known)</label><input id="ph" type="number" min="0" max="14" step=".1" placeholder="e.g. 7.0"></div><div class="field"><label for="acre">Land size (acres)</label><input id="acre" type="number" min=".1" step=".1" value="2"></div></div><button class="action" id="saveField">Save field details →</button><div class="output" id="fieldOut" aria-live="polite"></div></article></div></section>
+<section class="section" id="crop"><div class="section-head"><span class="pill">02 · CLIMATE-AWARE CROP PLANNER</span><h2>Find a crop that fits your field.</h2><p>Consider land type, climate and available water before choosing a crop.</p></div><div class="grid2"><article class="card"><h3>🌾 Crop recommendation</h3><p class="desc">Choose your field conditions to get an educational crop shortlist.</p><div class="row2"><div class="field"><label for="csoil">Soil type</label><select id="csoil"><option>Black soil</option><option>Red soil</option><option>Loamy soil</option><option>Sandy soil</option><option>Clay soil</option></select></div><div class="field"><label for="cwater">Water availability</label><select id="cwater"><option>High</option><option>Moderate</option><option>Low</option></select></div></div><div class="row2"><div class="field"><label for="climate">Climate / season</label><select id="climate"><option value="monsoon">Monsoon / rainy</option><option value="hot">Hot and dry</option><option value="winter">Cool / winter</option><option value="humid">Humid</option></select></div><div class="field"><label for="region">Region</label><select id="region"><option>Telangana</option><option>Other state in India</option></select></div></div><button class="action" id="cropBtn">Suggest suitable crops →</button><div class="output" id="cropOut" aria-live="polite"></div></article>
+<article class="card"><h3>🧭 How the recommendation works</h3><p class="desc">A useful crop plan should consider more than one input.</p><div class="market-row"><div><b>Soil report</b><small>pH, nutrients, texture and drainage</small></div><span class="badge">Soil</span></div><div class="market-row"><div><b>Climate and season</b><small>Temperature, rainfall and crop calendar</small></div><span class="badge">Climate</span></div><div class="market-row"><div><b>Water resources</b><small>Irrigation access and water requirement</small></div><span class="badge">Water</span></div><div class="market-row"><div><b>Local crop guidance</b><small>Variety, sowing window and local expertise</small></div><span class="badge">Local</span></div><p class="notice">The sample recommendations below are not a substitute for a soil test interpretation or advice from your local agriculture officer.</p></article></div></section>
+<section class="section" id="disease"><div class="section-head"><span class="pill">03 · CROP HEALTH & BIO-INPUTS</span><h2>Spot crop problems. Protect your harvest.</h2><p>Upload a crop image and use a guided observation checklist.</p></div><div class="grid2"><article class="card"><h3>🔬 AI crop disease detector</h3><p class="desc">Add a clear leaf or crop photo. The current website is a prototype and does not yet run an AI diagnosis model.</p><label class="upload" for="leaf"><span class="upload-icon">＋</span><b>Upload crop / leaf photo</b><small>JPG or PNG · use a clear, well-lit image</small><input id="leaf" type="file" accept="image/*"><img id="leafPreview" class="preview" alt="Selected crop image"></label><div class="field"><label for="symptom">What do you notice?</label><select id="symptom"><option>Leaf spots or patches</option><option>Yellow leaves</option><option>Wilting or drying</option><option>Powdery / white growth</option><option>Holes or insect damage</option><option>Stem or fruit rot</option></select></div><button class="action" id="diseaseBtn">Review crop symptoms →</button><div class="output" id="diseaseOut" aria-live="polite"></div></article>
+<article class="card"><h3>🌿 Biofertilizer & crop-care guidance</h3><p class="desc">Choose bio-inputs only after the crop issue and nutrient need are confirmed.</p><div class="market-row"><div><b>Rhizobium / Azotobacter</b><small>Beneficial microbes used for selected crops and nitrogen support</small></div><span class="badge">Bio-input</span></div><div class="market-row"><div><b>PSB (phosphate-solubilizing bacteria)</b><small>Can help make soil phosphorus more available</small></div><span class="badge">Bio-input</span></div><div class="market-row"><div><b>Trichoderma</b><small>Biocontrol organism used in certain soil-borne disease management programmes</small></div><span class="badge">Biocontrol</span></div><p class="notice">These are examples, not a spray prescription. Correct product, crop, application method and dose depend on the diagnosis and label. Biofertilizers do not cure every plant disease. Consult an agriculture extension officer or qualified agronomist before application.</p></article></div></section>
+<section class="section" id="market"><div class="section-head"><span class="pill">04 · INDIA MARKET WATCH</span><h2>Compare markets. Plan your sale.</h2><p>Find the market with a better price and compare input costs before buying.</p></div><div class="grid2"><article class="card"><h3>📈 Market price comparison</h3><p class="desc">Select a crop and state to see how a future live mandi-price feature can work.</p><div class="row2"><div class="field"><label for="commodity">Crop / commodity</label><select id="commodity"><option>Maize</option><option>Paddy</option><option>Cotton</option><option>Red gram (Tur)</option><option>Groundnut</option><option>Chilli</option></select></div><div class="field"><label for="state">State</label><select id="state"><option>Telangana</option><option>Andhra Pradesh</option><option>Maharashtra</option><option>Karnataka</option><option>All India</option></select></div></div><button class="action" id="marketBtn">Show market comparison concept →</button><div class="output" id="marketOut" aria-live="polite"></div><p class="notice">No live mandi prices are connected. A production version can connect verified AGMARKNET / e-NAM data and show date, market, unit and arrival volume.</p></article>
+<article class="card"><h3>🛒 Where to buy farm inputs</h3><p class="desc">Compare local shops and authorised suppliers for seeds, biofertilizers and other farm inputs.</p><div class="field"><label for="inputType">What do you want to purchase?</label><select id="inputType"><option>Biofertilizer</option><option>Seeds</option><option>Organic manure</option><option>Crop protection product</option></select></div><div class="field"><label for="district">Your district / town</label><input id="district" placeholder="e.g. Warangal, Karimnagar, Nizamabad"></div><button class="action" id="buyBtn">Prepare local buying checklist →</button><div class="output" id="buyOut" aria-live="polite"></div><p class="notice">Compare total cost, batch number, expiry date, quality certification and authorised seller details. Do not choose solely by the lowest price.</p></article></div></section>
+<section class="section" id="features"><div class="section-head"><span class="pill">05 · FARMER MOBILE COMPANION</span><h2>Useful information, right on your phone.</h2><p>Designed to help farmers monitor crops and make timely decisions.</p></div><div class="features"><div class="feature"><div class="feature-icon">📲</div><h3>Mobile farmer dashboard</h3><p>Keep field details, crop stage, observations and reminders together in one place.</p></div><div class="feature"><div class="feature-icon">🌦️</div><h3>Weather forecast alerts</h3><p>Plan sowing, irrigation and field work using location-based forecast information.</p></div><div class="feature"><div class="feature-icon">🌱</div><h3>Crop-stage monitoring</h3><p>Track crop growth and get timely prompts for field scouting and farm activities.</p></div><div class="feature"><div class="feature-icon">🧫</div><h3>Disease-risk awareness</h3><p>Combine crop observations and weather conditions to flag when closer inspection may be useful.</p></div><div class="feature"><div class="feature-icon">📍</div><h3>Market and price alerts</h3><p>Compare verified prices across Telangana mandis and other Indian markets.</p></div><div class="feature"><div class="feature-icon">♻️</div><h3>Nature-friendly decisions</h3><p>Support soil health, efficient water use and responsible, evidence-based crop care.</p></div></div></section>
+<section class="section"><div class="vision"><span class="pill">OUR VISION</span><h2>Science for the soil. Intelligence for the farmer.</h2><p>AI Crop Disease Detector is imagined as a farmer-first digital platform: mobile access, soil-test-based crop planning, climate and water-aware suggestions, crop-health monitoring, responsible bio-input guidance, and market comparison across Telangana and India. The long-term goal is to make trusted agricultural information easier to access wherever a farmer works.</p></div></section>
+</main>
+<footer><div class="wrap"><div class="foot"><div class="brand"><span class="brand-icon">🌱</span>AgriSense AI</div><div><div class="creator-label">Created with innovation by</div><div class="creator-name">Uday Charan</div><div class="for">For <b>B. Prathik</b> &amp; <b>S. Ruthvik</b></div></div></div><p class="footer-note">Prototype notice: mobile OTP, AI image diagnosis, live weather forecasts, crop monitoring alerts and live market-price feeds require secure backend services and verified data integrations. Crop and bio-input information on this demo is educational only. Always follow product labels and local agricultural expert guidance.</p></div></footer>
+
+<script>
+(() => {
+ const translations = {
+  te: {
+   "Farmer login":"రైతు లాగిన్","Crop planner":"పంట ప్రణాళిక","Disease care":"పంట వ్యాధి సంరక్షణ","Market watch":"మార్కెట్ సమాచారం","Get started ↗":"ప్రారంభించండి ↗",
+   "✦ Smart agriculture • Nature meets science":"✦ స్మార్ట్ వ్యవసాయం • ప్రకృతితో విజ్ఞానం",
+   "AI CROP DISEASE ":"AI పంట వ్యాధి ","DETECTOR":"గుర్తింపు వ్యవస్థ",
+   "Your intelligent farming companion. Sign in with a mobile number, add your soil-test details, discover crop options for your climate and water availability, monitor crop health, and explore market opportunities across Telangana and India.":"మీ తెలివైన వ్యవసాయ సహాయకుడు. మొబైల్ నంబర్‌తో ప్రారంభించి, నేల పరీక్ష వివరాలు నమోదు చేయండి. వాతావరణం మరియు నీటి లభ్యత ఆధారంగా పంటలను తెలుసుకోండి, పంట ఆరోగ్యాన్ని గమనించండి, తెలంగాణ మరియు భారతదేశ మార్కెట్ అవకాశాలను పరిశీలించండి.",
+   "Start as a farmer ↗":"రైతుగా ప్రారంభించండి ↗","Explore features":"ఫీచర్లను చూడండి",
+   "01 · FARMER ACCESS":"01 · రైతు ప్రవేశం","Welcome, farmer.":"స్వాగతం రైతన్నా.","Start with your mobile number, then add your field information.":"మొబైల్ నంబర్‌తో ప్రారంభించి, మీ పొలం వివరాలను నమోదు చేయండి.",
+   "📱 Farmer login":"📱 రైతు లాగిన్","Enter your mobile number to begin. This demo shows the login flow only; OTP verification needs a secure backend.":"ప్రారంభించడానికి మీ మొబైల్ నంబర్ నమోదు చేయండి. ఇది నమూనా లాగిన్ మాత్రమే; OTP ధృవీకరణకు సురక్షిత బ్యాక్‌ఎండ్ అవసరం.",
+   "Mobile number":"మొబైల్ నంబర్","Enter 10-digit mobile number":"10 అంకెల మొబైల్ నంబర్ నమోదు చేయండి","Continue with mobile number →":"మొబైల్ నంబర్‌తో కొనసాగండి →",
+   "🧾 Soil & field report":"🧾 నేల మరియు పొలం నివేదిక","Add your soil-test values and field conditions for more informed crop planning.":"మెరుగైన పంట ప్రణాళిక కోసం నేల పరీక్ష విలువలు మరియు పొలం వివరాలను నమోదు చేయండి.",
+   "Upload soil test report (optional)":"నేల పరీక్ష నివేదిక అప్‌లోడ్ చేయండి (ఐచ్ఛికం)","Land / soil type":"భూమి / నేల రకం","Water availability":"నీటి లభ్యత","Soil pH (if known)":"నేల pH (తెలిస్తే)","Land size (acres)":"భూమి విస్తీర్ణం (ఎకరాలు)","Save field details →":"పొలం వివరాలను సేవ్ చేయండి →",
+   "02 · CLIMATE-AWARE CROP PLANNER":"02 · వాతావరణ ఆధారిత పంట ప్రణాళిక","Find a crop that fits your field.":"మీ పొలానికి సరిపోయే పంటను ఎంచుకోండి.","Consider land type, climate and available water before choosing a crop.":"పంటను ఎంచుకునే ముందు భూమి రకం, వాతావరణం మరియు నీటి లభ్యతను పరిగణించండి.",
+   "🌾 Crop recommendation":"🌾 పంట సిఫార్సు","Choose your field conditions to get an educational crop shortlist.":"మీ పొలం వివరాలను ఎంచుకుని పంటల సూచనలను పొందండి.",
+   "Climate / season":"వాతావరణం / సీజన్","Region":"ప్రాంతం","Suggest suitable crops →":"తగిన పంటలను సూచించండి →","🧭 How the recommendation works":"🧭 సిఫార్సు ఎలా పనిచేస్తుంది",
+   "A useful crop plan should consider more than one input.":"మంచి పంట ప్రణాళికలో అనేక అంశాలను పరిగణించాలి.",
+   "Soil report":"నేల నివేదిక","pH, nutrients, texture and drainage":"pH, పోషకాలు, నేల స్వభావం మరియు నీటి పారుదల",
+   "Climate and season":"వాతావరణం మరియు సీజన్","Temperature, rainfall and crop calendar":"ఉష్ణోగ్రత, వర్షపాతం మరియు పంట క్యాలెండర్",
+   "Water resources":"నీటి వనరులు","Irrigation access and water requirement":"సాగునీటి సదుపాయం మరియు నీటి అవసరం",
+   "Local crop guidance":"స్థానిక పంట సలహా","Variety, sowing window and local expertise":"రకం, విత్తే సమయం మరియు స్థానిక నిపుణుల సలహా",
+   "03 · CROP HEALTH & BIO-INPUTS":"03 · పంట ఆరోగ్యం మరియు జీవ ఉత్పత్తులు","Spot crop problems. Protect your harvest.":"పంట సమస్యలను గుర్తించండి. దిగుబడిని కాపాడండి.",
+   "Upload a crop image and use a guided observation checklist.":"పంట ఫోటోను అప్‌లోడ్ చేసి లక్షణాలను పరిశీలించండి.",
+   "🔬 AI crop disease detector":"🔬 AI పంట వ్యాధి గుర్తింపు","Add a clear leaf or crop photo. The current website is a prototype and does not yet run an AI diagnosis model.":"ఆకు లేదా పంట యొక్క స్పష్టమైన ఫోటోను జోడించండి. ఇది నమూనా వెబ్‌సైట్ మాత్రమే; ప్రస్తుతం AI నిర్ధారణ మోడల్ లేదు.",
+   "Upload crop / leaf photo":"పంట / ఆకు ఫోటో అప్‌లోడ్ చేయండి","What do you notice?":"మీరు గమనించిన లక్షణం ఏమిటి?","Review crop symptoms →":"పంట లక్షణాలను పరిశీలించండి →",
+   "🌿 Biofertilizer & crop-care guidance":"🌿 జీవ ఎరువులు మరియు పంట సంరక్షణ సలహా","Choose bio-inputs only after the crop issue and nutrient need are confirmed.":"పంట సమస్య మరియు పోషకాల అవసరం నిర్ధారించిన తర్వాతే జీవ ఉత్పత్తులను ఎంచుకోండి.",
+   "04 · INDIA MARKET WATCH":"04 · భారత మార్కెట్ సమాచారం","Compare markets. Plan your sale.":"మార్కెట్లను పోల్చండి. అమ్మకాన్ని ప్రణాళిక చేయండి.","Find the market with a better price and compare input costs before buying.":"మంచి ధర లభించే మార్కెట్‌ను గుర్తించండి. కొనుగోలు ముందు ఖర్చులను పోల్చండి.",
+   "📈 Market price comparison":"📈 మార్కెట్ ధరల పోలిక","Select a crop and state to see how a future live mandi-price feature can work.":"పంట మరియు రాష్ట్రాన్ని ఎంచుకుని మార్కెట్ ధరల పోలికను చూడండి.",
+   "Crop / commodity":"పంట / సరుకు","State":"రాష్ట్రం","Show market comparison concept →":"మార్కెట్ పోలికను చూడండి →",
+   "🛒 Where to buy farm inputs":"🛒 వ్యవసాయ ఉత్పత్తులు ఎక్కడ కొనాలి","Compare local shops and authorised suppliers for seeds, biofertilizers and other farm inputs.":"విత్తనాలు, జీవ ఎరువులు మరియు ఇతర వ్యవసాయ ఉత్పత్తుల కోసం స్థానిక దుకాణాలు, అధీకృత విక్రేతలను పోల్చండి.",
+   "What do you want to purchase?":"మీరు ఏమి కొనాలనుకుంటున్నారు?","Your district / town":"మీ జిల్లా / పట్టణం","Prepare local buying checklist →":"కొనుగోలు తనిఖీ జాబితా తయారు చేయండి →",
+   "05 · FARMER MOBILE COMPANION":"05 · రైతు మొబైల్ సహాయకుడు","Useful information, right on your phone.":"మీ ఫోన్‌లోనే ఉపయోగకరమైన సమాచారం.","Designed to help farmers monitor crops and make timely decisions.":"పంటలను గమనించి సరైన సమయంలో నిర్ణయాలు తీసుకోవడానికి రైతులకు సహాయం చేస్తుంది.",
+   "Mobile farmer dashboard":"రైతు మొబైల్ డ్యాష్‌బోర్డ్","Weather forecast alerts":"వాతావరణ సూచన హెచ్చరికలు","Crop-stage monitoring":"పంట దశల పర్యవేక్షణ","Disease-risk awareness":"వ్యాధి ప్రమాద సూచనలు","Market and price alerts":"మార్కెట్ మరియు ధరల హెచ్చరికలు","Nature-friendly decisions":"ప్రకృతి అనుకూల నిర్ణయాలు",
+   "OUR VISION":"మా లక్ష్యం","Science for the soil. Intelligence for the farmer.":"నేల కోసం విజ్ఞానం. రైతు కోసం తెలివైన సాంకేతికత.",
+   "CREATED WITH INNOVATION BY":"సృజనాత్మకంగా రూపొందించినవారు","For ":"వారి కోసం "
+  },
+  hi: {
+   "Farmer login":"किसान लॉगिन","Crop planner":"फसल योजना","Disease care":"फसल रोग देखभाल","Market watch":"बाज़ार जानकारी","Get started ↗":"शुरू करें ↗",
+   "✦ Smart agriculture • Nature meets science":"✦ स्मार्ट कृषि • प्रकृति और विज्ञान",
+   "AI CROP DISEASE ":"AI फसल रोग ","DETECTOR":"पहचान प्रणाली",
+   "Your intelligent farming companion. Sign in with a mobile number, add your soil-test details, discover crop options for your climate and water availability, monitor crop health, and explore market opportunities across Telangana and India.":"आपका स्मार्ट खेती सहायक। मोबाइल नंबर से शुरू करें, मिट्टी जाँच की जानकारी भरें, जल उपलब्धता और जलवायु के अनुसार फसल विकल्प देखें, फसल की सेहत पर नज़र रखें और तेलंगाना तथा भारत के बाज़ार अवसर जानें।",
+   "Start as a farmer ↗":"किसान के रूप में शुरू करें ↗","Explore features":"सुविधाएँ देखें",
+   "01 · FARMER ACCESS":"01 · किसान प्रवेश","Welcome, farmer.":"स्वागत है किसान भाई।","Start with your mobile number, then add your field information.":"मोबाइल नंबर से शुरू करें और फिर अपने खेत की जानकारी भरें।",
+   "📱 Farmer login":"📱 किसान लॉगिन","Enter your mobile number to begin. This demo shows the login flow only; OTP verification needs a secure backend.":"शुरू करने के लिए मोबाइल नंबर दर्ज करें। यह केवल डेमो लॉगिन है; OTP सत्यापन के लिए सुरक्षित बैकएंड चाहिए।",
+   "Mobile number":"मोबाइल नंबर","Enter 10-digit mobile number":"10 अंकों का मोबाइल नंबर दर्ज करें","Continue with mobile number →":"मोबाइल नंबर से आगे बढ़ें →",
+   "🧾 Soil & field report":"🧾 मिट्टी और खेत की रिपोर्ट","Add your soil-test values and field conditions for more informed crop planning.":"बेहतर फसल योजना के लिए मिट्टी जाँच और खेत की जानकारी भरें।",
+   "Upload soil test report (optional)":"मिट्टी जाँच रिपोर्ट अपलोड करें (वैकल्पिक)","Land / soil type":"ज़मीन / मिट्टी का प्रकार","Water availability":"पानी की उपलब्धता","Soil pH (if known)":"मिट्टी का pH (यदि पता हो)","Land size (acres)":"ज़मीन का क्षेत्रफल (एकड़)","Save field details →":"खेत की जानकारी सेव करें →",
+   "02 · CLIMATE-AWARE CROP PLANNER":"02 · जलवायु आधारित फसल योजना","Find a crop that fits your field.":"अपने खेत के लिए उपयुक्त फसल चुनें।","Consider land type, climate and available water before choosing a crop.":"फसल चुनने से पहले मिट्टी, जलवायु और पानी की उपलब्धता देखें।",
+   "🌾 Crop recommendation":"🌾 फसल सुझाव","Choose your field conditions to get an educational crop shortlist.":"फसल विकल्प देखने के लिए खेत की जानकारी चुनें।",
+   "Climate / season":"जलवायु / मौसम","Region":"क्षेत्र","Suggest suitable crops →":"उपयुक्त फसल सुझाएँ →","🧭 How the recommendation works":"🧭 सुझाव कैसे काम करता है",
+   "A useful crop plan should consider more than one input.":"अच्छी फसल योजना में कई बातों का ध्यान रखना चाहिए।",
+   "Soil report":"मिट्टी की रिपोर्ट","pH, nutrients, texture and drainage":"pH, पोषक तत्व, मिट्टी की बनावट और जल निकासी",
+   "Climate and season":"जलवायु और मौसम","Temperature, rainfall and crop calendar":"तापमान, वर्षा और फसल कैलेंडर",
+   "Water resources":"जल संसाधन","Irrigation access and water requirement":"सिंचाई सुविधा और पानी की आवश्यकता",
+   "Local crop guidance":"स्थानीय फसल सलाह","Variety, sowing window and local expertise":"किस्म, बुवाई का समय और स्थानीय विशेषज्ञ सलाह",
+   "03 · CROP HEALTH & BIO-INPUTS":"03 · फसल स्वास्थ्य और जैविक इनपुट","Spot crop problems. Protect your harvest.":"फसल की समस्या पहचानें। अपनी उपज बचाएँ।",
+   "Upload a crop image and use a guided observation checklist.":"फसल की तस्वीर अपलोड करें और लक्षणों की जाँच करें।",
+   "🔬 AI crop disease detector":"🔬 AI फसल रोग पहचान","Add a clear leaf or crop photo. The current website is a prototype and does not yet run an AI diagnosis model.":"पत्ते या फसल की साफ़ तस्वीर जोड़ें। यह प्रोटोटाइप वेबसाइट है; इसमें अभी AI रोग पहचान मॉडल नहीं है।",
+   "Upload crop / leaf photo":"फसल / पत्ते की तस्वीर अपलोड करें","What do you notice?":"आपको कौन-सा लक्षण दिख रहा है?","Review crop symptoms →":"फसल के लक्षण देखें →",
+   "🌿 Biofertilizer & crop-care guidance":"🌿 जैव उर्वरक और फसल देखभाल सलाह","Choose bio-inputs only after the crop issue and nutrient need are confirmed.":"फसल की समस्या और पोषक तत्वों की ज़रूरत की पुष्टि के बाद ही जैविक उत्पाद चुनें।",
+   "04 · INDIA MARKET WATCH":"04 · भारत बाज़ार जानकारी","Compare markets. Plan your sale.":"बाज़ार की तुलना करें। बिक्री की योजना बनाएँ।","Find the market with a better price and compare input costs before buying.":"बेहतर दाम वाला बाज़ार खोजें और खरीदने से पहले लागत की तुलना करें।",
+   "📈 Market price comparison":"📈 बाज़ार भाव की तुलना","Select a crop and state to see how a future live mandi-price feature can work.":"फसल और राज्य चुनें; मंडी भाव की तुलना का डेमो देखें।",
+   "Crop / commodity":"फसल / वस्तु","State":"राज्य","Show market comparison concept →":"बाज़ार तुलना देखें →",
+   "🛒 Where to buy farm inputs":"🛒 खेती के सामान कहाँ खरीदें","Compare local shops and authorised suppliers for seeds, biofertilizers and other farm inputs.":"बीज, जैव उर्वरक और खेती के अन्य सामान के लिए स्थानीय दुकानों और अधिकृत विक्रेताओं की तुलना करें।",
+   "What do you want to purchase?":"आप क्या खरीदना चाहते हैं?","Your district / town":"आपका ज़िला / शहर","Prepare local buying checklist →":"खरीदारी की सूची बनाएँ →",
+   "05 · FARMER MOBILE COMPANION":"05 · किसान मोबाइल सहायक","Useful information, right on your phone.":"ज़रूरी जानकारी सीधे आपके फ़ोन पर।","Designed to help farmers monitor crops and make timely decisions.":"किसानों को फसल पर नज़र रखने और सही समय पर निर्णय लेने में मदद के लिए बनाया गया।",
+   "Mobile farmer dashboard":"किसान मोबाइल डैशबोर्ड","Weather forecast alerts":"मौसम पूर्वानुमान अलर्ट","Crop-stage monitoring":"फसल चरण निगरानी","Disease-risk awareness":"रोग जोखिम जानकारी","Market and price alerts":"बाज़ार और भाव अलर्ट","Nature-friendly decisions":"प्रकृति-अनुकूल निर्णय",
+   "OUR VISION":"हमारा उद्देश्य","Science for the soil. Intelligence for the farmer.":"मिट्टी के लिए विज्ञान। किसान के लिए तकनीक।",
+   "CREATED WITH INNOVATION BY":"नवाचार के साथ निर्मित","For ":"के लिए "
+  }
+ };
+ const select=document.getElementById('languageSelect');
+ if(!select)return;
+ const original=new Map();
+ const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+ while(walker.nextNode()){const n=walker.currentNode;original.set(n,n.nodeValue);}
+ function applyLanguage(code){
+  const dict=translations[code]||{};
+  for(const [node,source] of original){
+   if(!node.isConnected)continue;
+   const raw=source;
+   const trimmed=raw.trim();
+   if(!trimmed)continue;
+   let translated=dict[trimmed];
+   if(translated!==undefined){node.nodeValue=raw.replace(trimmed,translated);continue;}
+   // Preserve surrounding whitespace while translating common labels embedded in text nodes.
+   let result=raw;
+   for(const [en,local] of Object.entries(dict)){
+    if(en.length>3 && result.includes(en))result=result.replace(en,local);
+   }
+   node.nodeValue=result;
+  }
+  document.documentElement.lang=code;
+  localStorage.setItem('agrisense-language',code);
+ }
+ select.addEventListener('change',()=>applyLanguage(select.value));
+ const saved=localStorage.getItem('agrisense-language');
+ if(saved&&['en','te','hi'].includes(saved)){select.value=saved;applyLanguage(saved);}
+})();
+</script>
+
+<script>
+const el=id=>document.getElementById(id),show=(id,html)=>{el(id).innerHTML=html;el(id).classList.add('show')};
+el('login').addEventListener('click',()=>{let n=el('mobile').value.replace(/\D/g,'');if(n.length!==10){show('loginOut','<strong>Enter a valid 10-digit mobile number.</strong>');return}show('loginOut','<strong>Mobile number accepted for this demo.</strong><br>In the full app, a secure OTP would be sent to verify your number. No OTP is sent by this prototype.')});
+el('saveField').addEventListener('click',()=>{let a=Number(el('acre').value),p=el('ph').value;if(!a||a<=0){show('fieldOut','<strong>Please enter a valid land size.</strong>');return}show('fieldOut','<strong>Field details captured in this demo.</strong><br>Soil: '+el('landtype').value+' · Water: '+el('water').value+' · Land: '+a+' acre(s)'+(p?' · pH: '+p:'')+'. Connect a secure database to save this profile between visits.')});
+el('cropBtn').addEventListener('click',()=>{let s=el('csoil').value,w=el('cwater').value,c=el('climate').value,choices='Millets and pulses',reason='These can be options to investigate where water is limited.';if(s==='Black soil'&&w!=='Low'&&c==='monsoon'){choices='Cotton, soybean or red gram';reason='Black soils can suit these crops in suitable local seasons, subject to drainage, rainfall and variety.'}else if(s==='Clay soil'&&w==='High'&&c==='monsoon'){choices='Paddy (rice), where water and local conditions permit';reason='Clay soil may retain water, but paddy needs suitable water management and a locally recommended variety.'}else if(s==='Sandy soil'&&w==='Low'){choices='Pearl millet, pulses or groundnut';reason='Consider crops adapted to lower water availability and protect soil moisture.'}else if(s==='Red soil'){choices=w==='Low'?'Millets, red gram or groundnut':'Groundnut, maize or pulses';reason='Check soil depth, nutrient status, rainfall and local recommendations before selecting.'}else if(c==='winter'){choices='Season-appropriate pulses, wheat (where suitable) or vegetables';reason='The right choice depends strongly on local winter temperatures and irrigation.'}else if(c==='humid'){choices='Locally suitable pulses or vegetables';reason='Humidity can increase disease pressure, so choose adapted varieties and monitor crops.'}show('cropOut','<strong>Crop options to investigate: '+choices+'</strong><br>'+reason+'<br><small>Inputs: '+s+' · '+w+' water · '+c+' climate · '+el('region').value+'. This is an illustrative rule-based demo, not an AI agronomy engine. Confirm with a soil test and local agriculture officer.</small>')});
+let photo=null;el('leaf').addEventListener('change',e=>{photo=e.target.files[0];let p=el('leafPreview');if(photo&&photo.type.startsWith('image/')){p.src=URL.createObjectURL(photo);p.style.display='block'}else{p.style.display='none';photo=null}});
+el('diseaseBtn').addEventListener('click',()=>{let symptom=el('symptom').value;if(!photo){show('diseaseOut','<strong>Please upload a crop photo first.</strong>');return}show('diseaseOut','<strong>Photo received for a guided review.</strong><br>Observed symptom: '+symptom+'. Possible causes can include disease, pests, nutrient deficiency or environmental stress. This demo cannot identify the cause. Ask an agricultural expert to inspect the crop before choosing any biofertilizer, biocontrol or spray treatment.')});
+el('marketBtn').addEventListener('click',()=>{show('marketOut','<strong>Market comparison request prepared.</strong><br>Crop: '+el('commodity').value+' · Region: '+el('state').value+'. A live version should compare nearby APMC/e-NAM markets by latest modal price, date, distance, arrivals and transport cost, then highlight the best net return — not just the highest displayed price.')});
+el('buyBtn').addEventListener('click',()=>{let d=el('district').value.trim();if(!d){show('buyOut','<strong>Enter your district or town.</strong>');return}show('buyOut','<strong>Buying checklist for '+d+':</strong><br>1. Compare at least two authorised sellers.<br>2. Check batch number, expiry date and seal.<br>3. Confirm crop suitability and label directions.<br>4. Compare price plus travel/transport cost.<br>5. Keep the invoice and ask your local agriculture office about approved products.')});
+</script>
+</body></html>
